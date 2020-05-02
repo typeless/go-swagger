@@ -546,7 +546,12 @@ func pascalize(arg string) string {
 			return prefixForName(arg)
 		}
 	}
-	return swag.ToGoName(swag.ToGoName(arg)) // want to remove spaces
+	result := swag.ToGoName(swag.ToGoName(arg)) // want to remove spaces
+	if strings.ContainsRune(arg, '_') {
+		return result + "_"
+	} else {
+		return result
+	}
 }
 
 func prefixForName(arg string) string {
